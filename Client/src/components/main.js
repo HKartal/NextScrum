@@ -6,7 +6,7 @@ import create from './create';
 import login from './login';
 import Projects from './projects';
 import home from './home';
-
+import board from '../views/board';
 
 const Main = () => (
   <Switch>
@@ -15,6 +15,7 @@ const Main = () => (
     <Route path="/login" component={login} />
     <Route path="/projects" component={Projects} />
     <Route path="/home" component={home} />
+    <Route path="/board" component={board} />
   </Switch>
 )
 

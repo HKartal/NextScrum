@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
-import Kolom from '../components/kolom';
+import Column from '../components/board/column';
 import {DragDropContext, Droppable} from 'react-beautiful-dnd';
 
-const kolompseudoData = [
+const data = [
     {
         naam: "TODO",
         type: "TODO",
@@ -25,33 +25,37 @@ const kolompseudoData = [
 
 class BoardView extends Component{
 
-    onDragEnd = () =>{
-
+    onDragEnd = (result) =>{
+        const {destination, source, type, draggableId} = result;
+        console.log(destination);
+        console.log(source);
+        console.log(type);
+        console.log(draggableId);
     }
     
     render(){
         let colCount = 3;
-        let widthPerCol = 12/colCount;
+        let widthPerCol = Math.round(11/colCount);
 
         return(
-            <DragDropContext>
-                <div className="container">
-                    <div className="row board">
-                        <Droppable droppableId="1">
-                            { (provided, snapshots)=>{
-                                    return (<React.Fragment ref={provided.innerRef} 
-                                        {...provided.droppableProps}>
-                                    {kolompseudoData.map((col, index)=>{
-                                        return (
-                                            <Kolom type={col.type} name={col.naam} col={widthPerCol} key={index}/>
-                                        );
-                                    })
-                                    }
-                                    </React.Fragment>);
+            <DragDropContext onDragEnd={this.onDragEnd}>
+                <div className="container px-0">
+                        <Droppable droppableId="1" type="column" direction="horizontal">
+                            { (provided, snapshots)=>(
+                                   
+                                        <div className="row board" ref={provided.innerRef} {...provided.droppableProps}>
+                                            {data.map((col, index)=>{
+                                                return (
+                                                    <Column type={col.type} name={col.naam} col={widthPerCol} index={index} key={index}/>
+                                                );
+                                            })}
+                                            {provided.placeholder}
+                                        </div>
+                                        
+                                    )
+                                   
                                 }
-                            }
-                        </Droppable>
-                    </div>
+                            </Droppable>
                 </div>
             </DragDropContext>
         );

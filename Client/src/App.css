@@ -70,3 +70,27 @@ width: 200px;
 
 /* login page css */
 
+
+
+
+/* scrumboard styling */
+.boardColumn{
+  min-height: 50vh;
+  max-height: 80vh;
+  margin-left: 24px;
+  background-color: #f5f5f5 ;
+  max-width: 25% !important;
+}
+
+.colName {
+  color: #212121;
+  text-align: center;
+}
+
+.board{
+  
+}
+
+.ticket-text{
+  user-select: none;
+}

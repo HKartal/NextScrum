@@ -5,6 +5,7 @@ import Main from './components/main';
 import { Link } from 'react-router-dom';
 import Logo from './nextscrumlogo.png';
 
+
 class App extends Component {
   render() {
     return (
@@ -16,6 +17,7 @@ class App extends Component {
                 <Link to="/create">Create</Link>
                 <Link to="/projects">Projects</Link>
                 <Link to="/login">Log in</Link>
+                <Link to="/board">test</Link>
             </Navigation>
         </Header>
         <Drawer title={<Link style={{textDecoration: 'none', color: 'black'}} to="/">NextScrum</Link>}>
@@ -24,6 +26,7 @@ class App extends Component {
               <Link to="/create">Create</Link>
               <Link to="/projects">Projects</Link>
               <Link to="/login">Log in</Link>
+              <Link to="/board">test</Link>
             </Navigation>
         </Drawer>
         <Content>
