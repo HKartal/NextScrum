@@ -13,6 +13,47 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+/*
+Route::get('/hello', function () {
+   return 'hello';
+    
 });
+*/
+
+/*
+
+Route::get('/users/{id}/{name}', function($id, $name){
+   return 'this is user '.$name. 'with an id of '.$id;
+    
+});
+*/
+
+
+Route::get('/', 'PagesController@index');
+
+
+Route::get('/about', function(){
+   return view('pages.about'); 
+    
+});
+    
+        
+Route::get('/register', function(){
+        return view ('register');
+});
+
+Route::get('/login', function(){
+        return view ('login');
+});
+    
+    
+    
+  
+    
+
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
