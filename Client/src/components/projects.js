@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Tabs, Tab, Grid, Cell, Card, CardTitle, CardText, CardActions, Button, CardMenu, IconButton } from 'react-mdl';
+import { Tabs, Tab, Grid, Cell,  Card, CardTitle, CardText, CardActions, Button, CardMenu, IconButton} from 'react-mdl';
 
 
 class Projects extends Component {
@@ -9,6 +9,8 @@ class Projects extends Component {
   }
 
   toggleCategories() {
+
+  
 
     if(this.state.activeTab === 0){
       return(
@@ -30,10 +32,18 @@ class Projects extends Component {
 
   }
 
+  updateTab = (tabId) =>{
+    this.setState({activeTab: tabId});
+    this.props.history.push(`/projects/${tabId}`);
+  }
+
   render() {
+
+   
+
     return(
       <div>
-        <Tabs activeTab={this.state.activeTab} onChange={(tabId) => this.setState({ activeTab: tabId })} ripple>
+        <Tabs activeTab={this.state.activeTab} onChange={(tabId)=>{this.updateTab(tabId)}} ripple>
           <Tab>Scrumbord1</Tab>
           <Tab>Scrumbord2</Tab>
           <Tab>Scrumbord3</Tab>
