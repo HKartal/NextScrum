@@ -1,5 +1,6 @@
+/* wouter */
 .header {
-  background: #7474c1;  /* fallback for old browsers */
+  background: #7474c1;  
 }
 .logo{
 width: 200px;
@@ -18,15 +19,12 @@ width: 200px;
 .projects-grid {
   display: flex;
 }
-
-/* home Page css */
 .home-right-col {
   background: #27221F;
   color: white;
   padding: 2em;
 }
 
-/* login page css */
 
 .login-body {
   margin: auto;

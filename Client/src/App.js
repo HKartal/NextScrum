@@ -1,3 +1,4 @@
+//wouter
 import React, { Component } from 'react';
 import './App.css';
 import { Layout, Header, Navigation, Drawer, Content } from 'react-mdl';
@@ -13,7 +14,7 @@ class App extends Component {
     <Layout>
         <Header className="header" title={<Link style={{textDecoration: 'none', color: 'white'}} to="/"><img className="logo" alt="" src={Logo}/></Link>} scroll>
             <Navigation>
-                <Link to="/home">home</Link>
+                <Link to="/home">Home</Link>
                 <Link to="/create">Create</Link>
                 <Link to="/projects">Projects</Link>
                 <Link to="/login">Log in</Link>
@@ -21,7 +22,7 @@ class App extends Component {
         </Header>
         <Drawer title={<Link style={{textDecoration: 'none', color: 'black'}} to="/">NextScrum</Link>}>
             <Navigation>
-              <Link to="/home">home</Link>
+              <Link to="/home">Home</Link>
               <Link to="/create">Create</Link>
               <Link to="/projects">Projects</Link>
               <Link to="/login">Log in</Link>
