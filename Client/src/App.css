@@ -134,3 +134,15 @@ width: 200px;
 .board-ticket-number{
   font-size: 12px;
 }
+
+/* 
+Author: Okke Mengerink
+*/
+
+.footer {
+  background-color: #3C3C3C;
+}
+
+.fa, .row {
+  color: white;
+}
