@@ -14,11 +14,17 @@ class Sprint extends Migration
     public function up()
     {
         Schema::create('sprint', function (Blueprint $table) {
-            $table->bigIncrements("sprint_id");
+            $table->engine = "InnoDB";
+            $table->increments("sprint_id");
             $table->integer("sprintNumber");
             $table->integer("sprintDuration");
-            $table->foreign("project_id_fk")->references("project_id")->on("project");
+            $table->unsignedInteger("project_id_fk");
+           
             
+        });
+
+        Schema::table('sprint', function($table){
+            $table->foreign("project_id_fk")->references("project_id")->on("project");
         });
     }
 

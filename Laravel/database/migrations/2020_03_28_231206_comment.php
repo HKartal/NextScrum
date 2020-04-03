@@ -14,12 +14,20 @@ class Comment extends Migration
     public function up()
     {
         Schema::create('comment', function (Blueprint $table) {
-            $table->bigIncrements("comment_id");
-            $table->foreign("parent_comment_id");
-            $table->foreign("ticket_id_fk")->references("ticket_id")->on("ticket");
+            $table->engine = "InnoDB";
+            $table->increments("comment_id");
+            $table->unsignedInteger("parent_comment_id")->unsigned()->nullable();
             $table->text("content");
+            $table->unsignedInteger('created_by');
             $table->timestamps();
         });
+
+        Schema::table('comment', function($table){
+            $table->foreign("parent_comment_id")->references("comment_id")->on('comment');
+            $table->foreign('created_by')->references('id')->on('users');
+           
+        });
+
     }
 
     /**

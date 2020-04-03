@@ -7,4 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class project extends Model
 {
     //
+    protected $table = 'project';
+    public $timestamps = false;
+
+    public function memberLinks(){
+        return $this->hasMany('App\member_link');
+    }
+
+    protected $fillable = [
+        'projectName', 'created_by',
+    ];
+    
 }
