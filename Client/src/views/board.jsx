@@ -140,27 +140,29 @@ class BoardView extends Component{
        
 
         return(
-            <DragDropContext onDragEnd={this.onDragEnd}>
-                <div className="container px-0">
-                        <Droppable droppableId="column-list" type="column" direction="horizontal">
-                            { (provided, snapshots)=>(
-                                   
-                                <div className="row board" ref={provided.innerRef} {...provided.droppableProps}>
-                                    {this.state.data.map((col, index)=>{
-                                        return (
-                                            <Column type={col.type} name={col.naam} id={col.column_id} tickets={col.tickets} col={widthPerCol} index={index} key={index}/>
-                                        );
-                                        
-                                    })}
-                                    {provided.placeholder}
-                                </div>
-                                        
-                            )
-                                   
-                        }
-                    </Droppable>
-                </div>
-            </DragDropContext>
+           
+                <DragDropContext onDragEnd={this.onDragEnd}>
+                    <div className="container px-0 mt-5">
+                            <Droppable droppableId="column-list" type="column" direction="horizontal">
+                                { (provided, snapshots)=>(
+                                    
+                                    <div className="row board row-board" ref={provided.innerRef} {...provided.droppableProps}>
+                                        {this.state.data.map((col, index)=>{
+                                            return (
+                                                <Column type={col.type} name={col.naam} id={col.column_id} tickets={col.tickets} col={widthPerCol} index={index} key={index}/>
+                                            );
+                                            
+                                        })}
+                                        {provided.placeholder}
+                                    </div>
+                                            
+                                )
+                                    
+                            }
+                        </Droppable>
+                    </div>
+                </DragDropContext>
+        
         );
     }
 }

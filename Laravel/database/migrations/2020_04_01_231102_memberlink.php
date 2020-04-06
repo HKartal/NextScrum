@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Column extends Migration
+class MemberLink extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,17 @@ class Column extends Migration
      */
     public function up()
     {
-        Schema::create('column', function (Blueprint $table) {
+        Schema::create('memberlink', function (Blueprint $table) {
             $table->engine = "InnoDB";
-            $table->increments("column_id");
-            $table->string('columnName', 150);
-            $table->integer("position");
-            $table->enum("type", ['todo','doing','done', 'backlog', 'other']);
-            $table->boolean("visible");
+            $table->unsignedInteger('user_id_fk');
             $table->unsignedInteger('project_id_fk');
+            $table->boolean('accepted');
+            $table->timestamps();
+          
         });
 
-        Schema::table('column', function($table){
+        Schema::table('memberlink', function($table){
+            $table->foreign('user_id_fk')->references('id')->on('users');
             $table->foreign('project_id_fk')->references('project_id')->on('project');
         });
     }
@@ -35,6 +35,6 @@ class Column extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('column');
+        Schema::dropIfExists('member_link');
     }
 }

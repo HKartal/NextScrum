@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Files extends Migration
+class TicketAssignee extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,18 @@ class Files extends Migration
      */
     public function up()
     {
-        Schema::create('files', function (Blueprint $table) {
-            $table->increments('file_id');
-            $table->text('originalName');
-            $table->text('diskName');
-            $table->string('mimetype', 255);
+        Schema::create('ticket_assignee', function (Blueprint $table) {
+            $table->engine = "InnoDB";
             $table->unsignedInteger('ticket_id_fk');
-
+            $table->unsignedInteger('user_id_fk');
             $table->timestamps();
+          
         });
 
-        Schema::table('files', function($table){
+        Schema::table('ticket_assignee', function ($table) {
             $table->foreign('ticket_id_fk')->references('ticket_id')->on('ticket');
+            $table->foreign('user_id_fk')->references('id')->on('users');
+          
         });
     }
 
@@ -35,6 +35,6 @@ class Files extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('files');
+        //
     }
 }

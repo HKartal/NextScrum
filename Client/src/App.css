@@ -70,8 +70,21 @@ width: 200px;
 
 
 
+/* 
+Author: Okke Mengerink
+*/
 
-/* scrumboard styling */
+.footer {
+  background-color: #3C3C3C;
+}
+
+.fa, .row {
+  color: white;
+}
+
+/** scrumboard styling
+  @author Rick van 't Ooster
+*/
 .boardColumn{
   min-height: 50vh;
   max-height: 80vh;
@@ -108,11 +121,7 @@ width: 200px;
   font-weight: 545;
   font-size: 14px;
 }
-/* 
-.board-ticket-body{
-  display: flex; 
-  flex-direction: column;
-} */
+
 
 .column-ticket-section{
   min-height: 84%;
@@ -129,6 +138,11 @@ width: 200px;
   user-select: none;
 }
 
+.row-board{
+  color: black;
+}
+
 .board-ticket-number{
   font-size: 12px;
 }
+

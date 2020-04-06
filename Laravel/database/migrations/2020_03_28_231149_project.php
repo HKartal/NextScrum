@@ -14,9 +14,14 @@ class Project extends Migration
     public function up()
     {
         Schema::create('project', function (Blueprint $table) {
-            $table->bigIncrements("project_id");
+            $table->engine = "InnoDB";
+            $table->increments("project_id");
             $table->string("projectName", 280);
-            
+            $table->unsignedInteger('created_by');
+        });
+
+        Schema::table('project', function($table){
+            $table->foreign('created_by')->references('id')->on('users');
         });
     }
 
