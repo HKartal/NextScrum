@@ -11,7 +11,7 @@ class member_link extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'user_id_fk', 'project_id_fk', 'pending'
+        'user_fk_id', 'project_fk_id', 'accepted'
     ];
 
     public function members(){

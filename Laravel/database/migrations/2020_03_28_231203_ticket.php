@@ -31,14 +31,14 @@ class Ticket extends Migration
             $table->unsignedInteger('created_by');
             $table->unsignedInteger("project_fk_id");
             $table->unsignedInteger("sprint_fk_id");
-            $table->unsignedInteger("column_id_fk");
+            $table->unsignedInteger("column_fk_id");
         });
 
         Schema::table('ticket', function($table){
             $table->foreign("created_by")->references("id")->on("users");
             $table->foreign("project_fk_id")->references("project_id")->on("project");
             $table->foreign("sprint_fk_id")->references("sprint_id")->on("sprint");
-            $table->foreign("column_id_fk")->references("column_id")->on("column");
+            $table->foreign("column_fk_id")->references("column_id")->on("column");
         });
 
     }

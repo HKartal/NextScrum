@@ -18,13 +18,13 @@ class Sprint extends Migration
             $table->increments("sprint_id");
             $table->integer("sprintNumber");
             $table->integer("sprintDuration");
-            $table->unsignedInteger("project_id_fk");
+            $table->unsignedInteger("project_fk_id");
            
             
         });
 
         Schema::table('sprint', function($table){
-            $table->foreign("project_id_fk")->references("project_id")->on("project");
+            $table->foreign("project_fk_id")->references("project_id")->on("project");
         });
     }
 

@@ -15,15 +15,15 @@ class TicketAssignee extends Migration
     {
         Schema::create('ticket_assignee', function (Blueprint $table) {
             $table->engine = "InnoDB";
-            $table->unsignedInteger('ticket_id_fk');
-            $table->unsignedInteger('user_id_fk');
+            $table->unsignedInteger('ticket_fk_id');
+            $table->unsignedInteger('user_fk_id');
             $table->timestamps();
           
         });
 
         Schema::table('ticket_assignee', function ($table) {
-            $table->foreign('ticket_id_fk')->references('ticket_id')->on('ticket');
-            $table->foreign('user_id_fk')->references('id')->on('users');
+            $table->foreign('ticket_fk_id')->references('ticket_id')->on('ticket');
+            $table->foreign('user_fk_id')->references('id')->on('users');
           
         });
     }

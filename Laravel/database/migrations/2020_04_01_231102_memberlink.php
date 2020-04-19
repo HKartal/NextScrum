@@ -15,16 +15,16 @@ class MemberLink extends Migration
     {
         Schema::create('memberlink', function (Blueprint $table) {
             $table->engine = "InnoDB";
-            $table->unsignedInteger('user_id_fk');
-            $table->unsignedInteger('project_id_fk');
+            $table->unsignedInteger('user_fk_id');
+            $table->unsignedInteger('project_fk_id');
             $table->boolean('accepted');
             $table->timestamps();
           
         });
 
         Schema::table('memberlink', function($table){
-            $table->foreign('user_id_fk')->references('id')->on('users');
-            $table->foreign('project_id_fk')->references('project_id')->on('project');
+            $table->foreign('user_fk_id')->references('id')->on('users');
+            $table->foreign('project_fk_id')->references('project_id')->on('project');
         });
     }
 

@@ -20,11 +20,11 @@ class Column extends Migration
             $table->integer("position");
             $table->enum("type", ['todo','doing','done', 'backlog', 'other']);
             $table->boolean("visible");
-            $table->unsignedInteger('project_id_fk');
+            $table->unsignedInteger('project_fk_id');
         });
 
         Schema::table('column', function($table){
-            $table->foreign('project_id_fk')->references('project_id')->on('project');
+            $table->foreign('project_fk_id')->references('project_id')->on('project');
         });
     }
 

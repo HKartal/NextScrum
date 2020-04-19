@@ -18,13 +18,13 @@ class Files extends Migration
             $table->text('originalName');
             $table->text('diskName');
             $table->string('mimetype', 255);
-            $table->unsignedInteger('ticket_id_fk');
+            $table->unsignedInteger('ticket_fk_id');
 
             $table->timestamps();
         });
 
         Schema::table('files', function($table){
-            $table->foreign('ticket_id_fk')->references('ticket_id')->on('ticket');
+            $table->foreign('ticket_fk_id')->references('ticket_id')->on('ticket');
         });
     }
 
