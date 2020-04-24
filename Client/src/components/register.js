@@ -1,15 +1,16 @@
-//atuer: jermain schifferling
-/*import React, { Component } from 'react';
+//Auteur Jermain Schifferling
+
+import React, { Component } from 'react';
 import { Grid, Cell } from 'react-mdl';
 import Education from './education';
 import Experience from './experience';
 
-
-
 class register extends React.Component {
   state = {
     username: '',
+    email: '',
     password: '',
+    isAdmin: false,
   }
 
   onChange = (e) => {
@@ -39,16 +40,24 @@ class register extends React.Component {
           placeholder='Username'
           onChange={e => this.onChange(e)}
           value={this.state.username} />
-      
+        <Input
+          name='email'
+          placeholder='Email'
+          onChange={e => this.onChange(e)}
+          value={this.state.email} />
         <Input
           name='password'
           placeholder='Password'
           type='password'
           onChange={e => this.onChange(e)}
           value={this.state.password} />
-    
-      
-
+        <Checkbox
+          name='isAdmin'
+          checked={this.state.isAdmin}
+          onChange={e => this.onChange(e)}
+        >
+          Admin?
+        </Checkbox>
         <br />
         <Button onClick={() => this.onSubmit()} type="primary">Primary</Button>
       </div>
@@ -64,4 +73,4 @@ mutation($username: String!, $email: String!, $password: String!, $isAdmin: Bool
 }
 `;
 
-export default graphql(mutation)(register); */ 
+export default graphql(mutation)(register);
