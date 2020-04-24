@@ -1,5 +1,6 @@
+/* wouter */
 .header {
-  background: #7474c1;  /* fallback for old browsers */
+  background: #7474c1;  
 }
 .logo{
 width: 200px;
@@ -18,15 +19,12 @@ width: 200px;
 .projects-grid {
   display: flex;
 }
-
-/* home Page css */
 .home-right-col {
   background: #27221F;
   color: white;
   padding: 2em;
 }
 
-/* login page css */
 
 .login-body {
   margin: auto;
@@ -72,8 +70,21 @@ width: 200px;
 
 
 
+/* 
+Author: Okke Mengerink
+*/
 
-/* scrumboard styling */
+.footer {
+  background-color: #3C3C3C;
+}
+
+.fa, .row {
+  color: white;
+}
+
+/** scrumboard styling
+  @author Rick van 't Ooster
+*/
 .boardColumn{
   min-height: 50vh;
   max-height: 80vh;
@@ -110,11 +121,7 @@ width: 200px;
   font-weight: 545;
   font-size: 14px;
 }
-/* 
-.board-ticket-body{
-  display: flex; 
-  flex-direction: column;
-} */
+
 
 .column-ticket-section{
   min-height: 84%;
@@ -131,6 +138,11 @@ width: 200px;
   user-select: none;
 }
 
+.row-board{
+  color: black;
+}
+
 .board-ticket-number{
   font-size: 12px;
 }
+

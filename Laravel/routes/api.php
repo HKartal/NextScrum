@@ -14,6 +14,61 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::group([
+    'prefix' => 'auth'
+], function(){
+    Route::post('login', 'AuthController@login');
+    Route::post('signup', 'AuthController@signup');
+
+    Route::group([
+        'middleware' => 'auth:api'
+    ], function(){
+        Route::get('logout', 'AuthController@logout');
+        Route::get('user', 'AuthController@user');
+    });
+});
+
+Route::group([
+    'prefix' => 'project'
+], function(){
+    Route::group([
+        'middleware' => 'auth:api'
+    ], function(){
+        Route::post('create', 'ProjectController@create');
+        Route::post('invite', 'ProjectController@invite');
+        Route::delete('invite', 'ProjectController@deleteInvite');
+        Route::get('members', 'ProjectController@getMembers');
+    });
+   
+});
+
+Route::group([
+    'prefix' => 'invites'
+], function(){
+    Route::group([
+        'middleware' => 'auth:api'
+    ], function(){
+        Route::post('accept', 'ProjectController@acceptInvite');
+        Route::post('decline', 'ProjectController@declineInvite');
+    });
+   
+});
+
+Route::group([
+    'prefix' => 'board'
+], function(){
+    Route::group([
+        'middleware' => 'auth:api'
+    ], function(){
+        Route::post('ticket', 'TicketController@createTicket');
+        Route::put('ticket', 'TicketController@updateTicket');
+        Route::delete('ticket', 'TicketController@deleteTicket');
+        Route::get('tickets', 'TicketController@getTickets');
+        Route::get('ticket', 'TicketController@getTicket');
+        Route::post("assign", 'TicketController@addAssignee');
+        Route::delete("assign", 'TicketController@removeAssignee');
+        // Route::post("column", 'TicketC')
+    });
+   
 });
