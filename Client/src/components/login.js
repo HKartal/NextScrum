@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 //atuer: jermain schifferling
 /*import React, { Component } from 'react';
 import { Grid, Cell } from 'react-mdl';
 import Education from './education';
 import Experience from './experience';
+=======
+//wouter
+import React, { Component } from 'react';
+import { Grid, Cell, List, ListItem, ListItemContent} from 'react-mdl';
+>>>>>>> c5aa98b9b9be2593599c575f59a378c94a355fbe
 
 
 
