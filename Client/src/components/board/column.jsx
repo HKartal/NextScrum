@@ -28,8 +28,9 @@ class Column extends Component{
                                                 {tickets.map((ticket, index)=>{
                                                     
                                                     return (
-                                                        <BoardTicket title={ticket.title} number={index} ticketNumber={ticket.ticketNumber}
-                                                            storypoints={ticket.storypoints} ticket_id={ticket.ticket_id} key={ticket.ticket_id}/>
+                                                        <BoardTicket title={ticket.ticketTitle} number={index} modal={this.props.modal} ticketNumber={ticket.ticketNumber}
+                                                            storypoints={ticket.storypoints} ticket_id={ticket.ticket_id} key={ticket.ticket_id} 
+                                                            members={this.props.members} ticket={ticket}/>
                                                     )
 
                                                 })}

@@ -146,7 +146,7 @@ class TicketController extends Controller{
             return response()->json(['message'=>"You don't have the rights to visit this page"], 403);
         }
 
-        ticket_assignee::where('user_fk_id', '=', $request->assignee)->get()->forceDelete();
+        ticket_assignee::where('user_fk_id', '=', $request->assignee)->forceDelete();
         return response()->json(['message'=>"Assignee succesfully added"], 200);
 
     }
@@ -192,8 +192,10 @@ class TicketController extends Controller{
             return response()->json(['message'=>"You don't have the rights to visit this page"], 403);
         }
     
-        $ticket = ticket::where('project_fk_id', '=', $request->project_id)->get();
+        $ticket = ticket::where('ticket_id', '=', $request->ticket_id)->first();
         
+        // return response()->json(["ticket"=>$ticket],200);
+
         if($ticket === null){
             return response()->json(['message'=>"Ticket not found"], 404);
         }
@@ -203,9 +205,7 @@ class TicketController extends Controller{
         $ticketAssignees = array();
     
         foreach($assignees as &$assignee){
-                $ticketAssignees[] = User::find($assignee->user_fk_id);
-            
-            $ticket["assignees"] = $ticketAssignees;
+            $ticketAssignees[] = User::find($assignee->user_fk_id);
             
         }
     
@@ -216,6 +216,60 @@ class TicketController extends Controller{
     
     }
     
+    public function getBoard(Request $request){
+        $rUser = $request->user();
+    
+        if(!in_project($rUser->id, $request->project_id)){
+            return response()->json(['message'=>"You don't have the rights to visit this page"], 403);
+        }
+
+        $columns = column::where('project_fk_id', '=', $request->project_id)->get();
+
+        $boardData = array();
+
+        foreach($columns as $column){
+           
+            $ticketData = array();
+            $tickets =  ticket::where('column_fk_id', '=', $column->column_id)->get();
+            
+            foreach($tickets as $index => $ticket){
+                $ticketData[$index] = $ticket;
+                $assignees = array();
+                $assigneesLinks = ticket_assignee::where('ticket_fk_id', '=', $ticket->ticket_id)->get();
+                foreach($assigneesLinks as $link){
+                    $user = User::find($link->user_fk_id);
+                    $assignees[] = $user;
+                }
+                $ticketData[$index]["assignees"] = $assignees;
+
+            }
+            $boardData[] = array("naam"=>$column->columnName, "type"=>$column->type, "column_id"=>$column->column_id, "tickets"=>$ticketData);
+        }
+
+
+        return response()->json(["board"=>$boardData], 200);
+
+    }
+
+    public function moveTicket(Request $request){
+        $rUser = $request->user();
+        $ticket_id = $request->ticket_id;
+        $project_id = $request->project_id;
+        $column = $request->column_id;
+        $status = $request->status;
+
+        if(!in_project($rUser->id, $project_id)){
+            return response()->json(['message'=>"You don't have the rights to visit this page"], 403);
+        }
+
+        ticket::where('ticket_id', '=', $ticket_id)->update(['column_fk_id' => $column, 'status'=>$status]);
+
+
+        return response()->json(["succes"=>true], 200);
+
+    }
+
+
 }
 
 

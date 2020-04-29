@@ -77,13 +77,29 @@ class ProjectController extends Controller{
 
     }
 
+    public function deleteProject(Request $request){
+        $rUser = $request->user();
+        $project_id = $request->project_id;
+        $project = project::where('project_id', '=', $project_id)->where('created_by', '=', $rUser->id)->get();
+        if(empty($project)){
+            return response()->json(["message"=>"Je hebt de rechten niet om deze actie uit te voeren"], 403);
+
+        }
+        $project = $project[0];
+        $links = member_link::where('project_fk_id', '=', $project->id)->forceDelete();
+        project::where('project_id', '=', $project_id)->where('created_by', '=', $rUser->id)->forceDelete();
+
+        return response()->json(["message"=>"Project successvol verwijderd"], 200);
+
+    }
+
     public function invite(Request $request){
         $creator = $request->user();
         $creator_id = $creator->id;
         $project_id = $request->project_id;
         $toInvite = $request->toInvite;
 
-        $userToInvite = user::find($toInvite);
+        $userToInvite = user::where('email', '=', $toInvite)->get()[0];
 
         
         
@@ -135,6 +151,30 @@ class ProjectController extends Controller{
         return response()->json(['message'=>'invite deleted'], 200);
     }
 
+    public function getInvitedList(Request $request){
+        $rUser = $request->user();
+        $project_id = $request->project_id;
+
+        $project = project::where('project_id', '=', $project_id)->where('created_by', '=', $rUser->id)->get();
+    
+
+        if(empty($project)){
+            return response()->json(['message'=>"You don't have to permissions for this action"], 403);
+        }
+
+        $invites = array();
+
+        $links = member_link::where('project_fk_id', '=', $project_id)->where('accepted', '=', 0)->get();
+
+        foreach($links as $link){
+            $invites[] = User::find($link->user_fk_id);
+        }
+
+
+        return response()->json(["pending"=>$invites]);
+
+    }
+
     public function acceptInvite(Request $request){
         $project_id = $request->project_id;
         $rUser = $request->user();
@@ -182,18 +222,51 @@ class ProjectController extends Controller{
         $creator = project::where('project_id', '=', $project_id)->first()->created_by;
 
         $memberData[] =  User::find($creator);
-
-        $members = member_link::where('project_fk_id', '=', $project_id)->get();
+        $memberData[0]["owner"] = true;
+        $members = member_link::where('project_fk_id', '=', $project_id)->where('accepted','=','1')->get();
        
-        foreach($members as $member){
+        foreach($members as $index => $member){
             $memberData[] = User::find($member->user_fk_id);
+            $memberData[$index+1]["owner"] = false;
         }
       
 
 
         return response()->json(["members"=>$memberData], 200);
+    }
 
+
+    public function getInvitableUsers(Request $request){
+        $rUser = $request->user();
+
+        $users = null;
+        $members = array();
+        
+        $memberLinks = member_link::where('project_fk_id', '=', $request->project_id)->get();
+        foreach($memberLinks as $link){
+            $members[] = $link->user_fk_id;
+        }
+        $users = User::where('id', '!=', $rUser->id)->whereNotIn('id', $members)->get();
+        
+
+        return response()->json(["available"=>$users],200);
 
     }
 
+    public function getUserProjects(Request $request){
+        $rUser = $request->user();
+        $projects = array();
+
+        $projects = project::where('created_by', '=', $rUser->id)->get();
+
+        
+
+        $memberLinks = member_link::where('user_fk_id', '=', $rUser->id)->where('accepted', '=', 1)->get();
+        foreach($memberLinks as $link){
+           $projects[] = project::where('project_id', '=', $link->project_fk_id);
+        }
+
+
+        return response()->json(["projects"=>$projects]);
+    }
 }

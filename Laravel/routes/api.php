@@ -39,6 +39,9 @@ Route::group([
         Route::post('invite', 'ProjectController@invite');
         Route::delete('invite', 'ProjectController@deleteInvite');
         Route::get('members', 'ProjectController@getMembers');
+        Route::get('projects', 'ProjectController@getUserProjects');
+        Route::get("invites", 'projectController@getInvitedList');
+        Route::delete('project', 'projectController@deleteProject');
     });
    
 });
@@ -68,6 +71,8 @@ Route::group([
         Route::get('ticket', 'TicketController@getTicket');
         Route::post("assign", 'TicketController@addAssignee');
         Route::delete("assign", 'TicketController@removeAssignee');
+        Route::get('board', 'TicketController@getBoard');
+        Route::put('move', 'TicketController@moveTicket');
         // Route::post("column", 'TicketC')
     });
    
